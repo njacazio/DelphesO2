@@ -419,6 +419,7 @@ int createO2tables(const char* inputFile = "delphes.root",
       aod_track.fTrackEtaEMCAL = 0; //track->GetTrackEtaOnEMCal();
       aod_track.fTrackPhiEMCAL = 0; //track->GetTrackPhiOnEMCal();
 
+      aod_track.fLength = track->L * 0.1; // [cm]
       // check if has hit the TOF
       if (tof_layer.hasTOF(*track)) {
 
@@ -442,7 +443,6 @@ int createO2tables(const char* inputFile = "delphes.root",
           }
         }
 
-        aod_track.fLength = track->L * 0.1;           // [cm]
         aod_track.fTOFChi2 = 1.f;                     // Negative if TOF is not available
         aod_track.fTOFSignal = track->TOuter * 1.e12; // [ps]
         aod_track.fTrackTime = track->TOuter * 1.e9;  // [ns]
@@ -453,7 +453,6 @@ int createO2tables(const char* inputFile = "delphes.root",
           tof_tracks.push_back(track);
       } else {
         aod_track.fTOFChi2 = -1.f;
-        aod_track.fLength = -999.f;
         aod_track.fTOFSignal = -999.f;
         aod_track.fTrackTime = -999.f;
         aod_track.fTrackTimeRes = 2000 * 1.e9;
