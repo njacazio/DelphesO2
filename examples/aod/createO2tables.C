@@ -176,7 +176,7 @@ int createO2tables(const char* inputFile = "delphes.root",
   // Forward RICH layer
   o2::delphes::RICHdetector forward_rich_detector;
   forward_rich_detector.setup(rich_radius, rich_length);
-  forward_rich_detector.setIndex(rich_index);
+  forward_rich_detector.setIndex(forward_rich_index);
   forward_rich_detector.setRadiatorLength(rich_radiator_length);
   forward_rich_detector.setEfficiency(rich_efficiency);
   forward_rich_detector.setSigma(rich_sigma);
