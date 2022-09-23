@@ -87,7 +87,7 @@ def listfiles(Path=None,
     bashCommand = "alien_find "
     # Printing name of output list
     if MakeXML:
-        bashCommand += " -x collection "
+        bashCommand += " -x - "
     bashCommand += "{} {} ".format(PathToScan, What)
     bashCommand = bashCommand.strip()
     verbose_msg("This is the list of found files:")
@@ -366,6 +366,9 @@ def main(input_files,
         warning_msg("Passed no input, use: --input_files")
         return
     if args.command == "listfiles":
+        makexml = False
+        if args.outfile and args.outfile.endswith(".xml"):
+            makexml = True
         for i in input_files:
             list_of_files = []
             if os.path.isfile(i):
@@ -379,6 +382,7 @@ def main(input_files,
                             paths_to_list.append(k)
                 for j in paths_to_list:
                     list_of_files += listfiles(Path=j,
+                                               MakeXML=makexml,
                                                What=args.what,
                                                MustHave=args.musthave,
                                                MustHaveCount=args.musthavecount,
@@ -386,6 +390,7 @@ def main(input_files,
                                                MustNotHave=args.mustnothave)
             else:
                 list_of_files = listfiles(Path=i,
+                                          MakeXML=makexml,
                                           What=args.what,
                                           MustHave=args.musthave,
                                           MustHaveCount=args.musthavecount,
