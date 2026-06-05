@@ -246,19 +246,13 @@ def main(reader_name,
             if tags_name is not None and styles is None:
                 drawn.append(latex.DrawLatexNDC(0.5, 0.80, tags_name[0]))
             if "vs_eta" in reader_name:
-                drawn.append(latex.DrawLatexNDC(0.42, 0.82, "#splitline{" +
-                                                "#it{p}_{T}"
-                                                + " = {:.1f} GeV/c".format(ind_var)
-                                                + " dN_{Ch}/d#eta ="
-                                                + f" {int(dnch_deta)}" + "}"
-                                                + ("{R_{min} = " + rmin + "}" if rmin is not None else "")))
+                lll = "#splitline{" + "#it{p}_{T}" + " = {:.1f} GeV/c".format(
+                    ind_var) + " dN_{Ch}/d#eta =" + f" {int(dnch_deta)}" + "}" + ("{R_{min} = " + rmin + "}" if rmin is not None else "{}")
+                drawn.append(latex.DrawLatexNDC(0.42, 0.82, lll))
             else:
-                # drawn.append(latex.DrawLatexNDC(0.55, 0.82, "#splitline{" +
-                drawn.append(latex.DrawLatexNDC(0.55, 0.45, "#splitline{" +
-                                                f"#eta = {int(ind_var)}"
-                                                + " dN_{Ch}/d#eta ="
-                                                + f" {int(dnch_deta)}" + "}"
-                                                + ("{R_{min} = " + rmin + "}" if rmin is not None else "")))
+                lll = "#splitline{" + f"#eta = {int(ind_var)}" + f" dN_{{Ch}}/d#eta = {int(dnch_deta)}" + "}" + ("{R_{min} = " + rmin + "}" if rmin is not None else "{}")
+                drawn.append(
+                    latex.DrawLatexNDC(0.55, 0.45, lll))
 
         adjust_pad()
         canvas_all_species.Update()
@@ -305,10 +299,9 @@ if __name__ == "__main__":
                         type=str, nargs="+",
                         default=None,
                         help="Title of the tags that can be used in legend making")
-    parser.add_argument("--ind_var", "--ind", "-i",
-                        type=float,
-                        default=0,
-                        help="Value of the indepentend variable, i.e. eta if plotting vs pT or pT if plotting against eta")
+    parser.add_argument(
+        "--ind_var", "--ind", "-i", type=float, default=0,
+        help="Value of the indepentend variable, i.e. eta if plotting vs pT or pT if plotting against eta")
     parser.add_argument("--styles",
                         type=int,
                         default=None,
